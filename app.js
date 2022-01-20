@@ -1,7 +1,15 @@
 const cors = require('cors');
 const express = require('express');
-const connection = require('./db-config');
+const connection = require('./src/connexion');
 require('dotenv').config();
+
+const apiRouter = require('./src/routers/api');
+
+const app = express();
+const port = process.env.PORT || 8000;
+
+app.use(express.json());
+app.use(cors());
 
 connection.connect((err) => {
   if (err) {
@@ -11,15 +19,7 @@ connection.connect((err) => {
   }
 });
 
-const setupRoutes = require('./routers/routes');
-
-const app = express();
-const port = process.env.PORT || 8000;
-
-app.use(cors());
-app.use(express.json());
-
-setupRoutes(app);
+app.use('/api', apiRouter);
 
 app.listen(port, () => {
   console.log(`Server run on ${port}`);

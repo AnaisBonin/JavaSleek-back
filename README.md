@@ -15,5 +15,5 @@ npm start
 
 - Import database
 ```shell
-mysql -u user -p database < db/manomano.sql
+mysql -u user -p database < db/mano.sql
 ```
