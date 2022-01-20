@@ -1,3 +1,14 @@
-const apiRouter = require('express').Router();
+const projectsRouter = require('express').Router();
+const projectsModel = require('../models/projects');
 
-module.exports = apiRouter;
+projectsRouter.get('/', async (req, res) => {
+  const [products] = await projectsModel.findAll();
+  res.json(products);
+});
+
+projectsRouter.get('/:id', async (req, res) => {
+  const [[products]] = await projectsModel.findOneById(req.params.id);
+  res.json(products);
+});
+
+module.exports = projectsRouter;
